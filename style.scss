@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  place-content: center;
+  background-color: white;
+}
+
+$max-width: 500px;
+
+@mixin animate($dly, $alt, $inf, $nma) {
+  animation-duration: $dly;
+  animation-direction: $alt;
+  animation-iteration-count: $inf;
+  animation-name: $nma;
+}
+
+@mixin rectangle {
+  .rectangle {
+    @include flex-column(row, center, center, 10px);
+
+    .rec {
+      width: 11px;
+      height: 46px;
+      border-radius: 8px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      -ms-border-radius: 8px;
+      -o-border-radius: 8px;
+      background-color: #fcbb12;
+      @include animate(0.7s, alternate, infinite, moreHeight);
+    }
+
+    .rec:nth-child(2) {
+      background-color: #e72a2b;
+      animation-delay: 0.7s;
+    }
+
+    .rec:nth-child(3) {
+      animation-delay: 1s;
+    }
+  }
+}
+
+@mixin flex-column($clm, $jc, $ai, $gap) {
+  display: flex;
+  flex-direction: $clm;
+  justify-content: $jc;
+  align-items: $ai;
+  gap: $gap;
+}
+
+.container {
+  @include flex-column(column, center, center, 25px);
+  max-width: $max-width;
+
+  img {
+    width: 35px;
+  }
+
+  @include rectangle;
+}
+
+@keyframes moreHeight {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.3);
+  }
+}
